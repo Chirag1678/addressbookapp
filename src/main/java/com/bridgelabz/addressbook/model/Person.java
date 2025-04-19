@@ -1,13 +1,16 @@
 package com.bridgelabz.addressbook.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "person_details")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +25,7 @@ public class Person {
     private String phoneNumber;
     private String email;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
 }

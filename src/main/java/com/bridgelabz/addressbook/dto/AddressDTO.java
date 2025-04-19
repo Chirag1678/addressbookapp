@@ -29,13 +29,9 @@ public class AddressDTO {
     private String country;
 
     @NotBlank(message = "Postal Code is required")
-    @Pattern(regexp = "^\\d{6}%", message = "Invalid Postal Code")
+    @Pattern(regexp = "^[0-9]{6}$", message = "Invalid Postal Code")
     private String postalCode;
 
     @NotBlank(message = "Address type is required")
-    @Pattern(
-            regexp = "^(home|office|other)$",
-            message = "Address Type must be 'home', 'office', or 'other'"
-    )
     private String addressType;
 }
