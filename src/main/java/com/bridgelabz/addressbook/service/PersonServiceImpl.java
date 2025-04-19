@@ -83,24 +83,21 @@ public class PersonServiceImpl implements PersonService{
         person.setPhoneNumber(personDTO.getPhoneNumber());
         person.setEmail(personDTO.getEmail());
 
-        // create a new address list
-        List<Address> addressList = personDTO.getAddress().stream()
-                .map(addressDTO -> {
-                    Address address = new Address();
-                    address.setHouseNo(addressDTO.getHouseNo());
-                    address.setStreet(addressDTO.getStreet());
-                    address.setCity(addressDTO.getCity());
-                    address.setState(addressDTO.getState());
-                    address.setCountry(addressDTO.getCountry());
-                    address.setPostalCode(addressDTO.getPostalCode());
-                    address.setAddressType(addressDTO.getAddressType());
-                    address.setPerson(person); // Set the parent person
-                    return address;
-                })
-                .collect(Collectors.toList());
+        person.getAddresses().clear();;
 
-        // Set the new addresses
-        person.setAddresses(addressList);
+        // create a new address list
+        for (AddressDTO addressDTO : personDTO.getAddress()) {
+            Address address = new Address();
+            address.setHouseNo(addressDTO.getHouseNo());
+            address.setStreet(addressDTO.getStreet());
+            address.setCity(addressDTO.getCity());
+            address.setState(addressDTO.getState());
+            address.setCountry(addressDTO.getCountry());
+            address.setPostalCode(addressDTO.getPostalCode());
+            address.setAddressType(addressDTO.getAddressType());
+            address.setPerson(person); // very important for maintaining relation
+            person.getAddresses().add(address);
+        }
 
         // Save the updated person
         personRepository.save(person);
