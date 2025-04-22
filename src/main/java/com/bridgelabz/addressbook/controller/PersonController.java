@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.dto.AddressDTO;
+import com.bridgelabz.addressbook.dto.LoginDTO;
 import com.bridgelabz.addressbook.dto.PersonDTO;
 import com.bridgelabz.addressbook.dto.ResponseDTO;
 import com.bridgelabz.addressbook.service.AddressService;
@@ -28,9 +29,18 @@ public class PersonController {
         return new ResponseEntity<>(responseDTO, HttpStatusCode.valueOf(responseDTO.getStatusCode()));
     }
 
+    // login a person
+    @PostMapping("/login")
+    public ResponseEntity<ResponseDTO> loginPerson(@RequestBody LoginDTO loginDTO) {
+        ResponseDTO responseDTO = personService.loginPerson(loginDTO.getUserName(), loginDTO.getPassword());
+
+        return new ResponseEntity<>(responseDTO, HttpStatusCode.valueOf(responseDTO.getStatusCode()));
+    }
+
     // get all person
     @GetMapping("/all")
-    public ResponseEntity<ResponseDTO> getAllPersons() {
+    public ResponseEntity<ResponseDTO> getAllPersons(@RequestHeader("Authorization") String token) {
+
         ResponseDTO responseDTO = personService.getAllPersons();
 
         return new ResponseEntity<>(responseDTO, HttpStatusCode.valueOf(responseDTO.getStatusCode()));

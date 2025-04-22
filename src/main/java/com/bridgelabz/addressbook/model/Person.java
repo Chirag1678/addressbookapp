@@ -22,8 +22,18 @@ public class Person {
 
     private String firstName;
     private String lastName;
-    private String phoneNumber;
-    private String email;
+    private String userName;
+    private String password;
+
+    @ElementCollection
+    @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "person_id"))
+    @Column(name = "phone_number")
+    private List<String> phoneNumber;
+
+    @ElementCollection
+    @CollectionTable(name = "emails", joinColumns = @JoinColumn(name = "person_id"))
+    @Column(name = "email")
+    private List<String> email;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -12,4 +12,5 @@ public interface PersonService {
     ResponseDTO deletePerson(Long personId);
     ResponseDTO updateAddressByType(Long personId, String addressType, AddressDTO addressDTO);
     ResponseDTO deleteAddressByType(Long personId, String addressType);
+    ResponseDTO loginPerson(String username, String password);
 }

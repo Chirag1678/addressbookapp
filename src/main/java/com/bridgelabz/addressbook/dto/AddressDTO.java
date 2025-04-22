@@ -33,5 +33,9 @@ public class AddressDTO {
     private String postalCode;
 
     @NotBlank(message = "Address type is required")
+    @Pattern(
+            regexp = "^(home|office|other)$",
+            message = "Address Type must be 'home', 'office', or 'other'"
+    )
     private String addressType;
 }
